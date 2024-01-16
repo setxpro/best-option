@@ -1,7 +1,8 @@
 # Qual é a melhor opção ?
 
 # Entenda como o cálculo é feito
-´``
+
+```
 Dividimos o valor do litro do àlcool pelo da gasolina.
 
 Quando o resultado é menor que 0,7, a recomendação é
