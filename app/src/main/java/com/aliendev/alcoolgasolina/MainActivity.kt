@@ -3,6 +3,7 @@ package com.aliendev.alcoolgasolina
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -83,27 +84,30 @@ fun App() {
         ))
             Spacer(modifier = Modifier.size(16.dp)) // Espaçamento
 
-        // Quando os campos não estiverem vazios
-        if (valueAlcohol.isNotBlank() && valueGasoline.isNotBlank()) {
-            val isGasoline = valueAlcohol.toDouble() / valueGasoline.toDouble() > 0.7;
-            val alcoholOrGasoline = when(isGasoline) {
-                true -> "GASOLINE"
-                else -> {
-                    "ALCOHOL"
+        AnimatedVisibility(visible = valueAlcohol.isNotBlank() && valueGasoline.isNotBlank()) {
+            // Quando os campos não estiverem vazios
+            if (valueAlcohol.isNotBlank() && valueGasoline.isNotBlank()) {
+                val isGasoline = valueAlcohol.toDouble() / valueGasoline.toDouble() > 0.7;
+                val alcoholOrGasoline = when(isGasoline) {
+                    true -> "GASOLINE"
+                    else -> {
+                        "ALCOHOL"
+                    }
                 }
-            }
-            val alcoholOrGasolineColor = when(isGasoline) {
-                true -> Color.Red
-                else -> {
-                    Color.Green
+                val alcoholOrGasolineColor = when(isGasoline) {
+                    true -> Color.Red
+                    else -> {
+                        Color.Green
+                    }
                 }
+                Text(text= alcoholOrGasoline, style = TextStyle(
+                    color = alcoholOrGasolineColor,
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold
+                ))
             }
-            Text(text= alcoholOrGasoline, style = TextStyle(
-                color = alcoholOrGasolineColor,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            ))
         }
+
             Spacer(modifier = Modifier.size(16.dp))// Espaçamento
 
 
@@ -129,7 +133,7 @@ fun App() {
                 valueGasoline = it // passando o valor para o state
             },
             label = {
-                Text(text = "Gasoline")
+                Text(text = "Gasoline (price per liter)")
             }
         )
             Spacer(modifier = Modifier.size(16.dp))// Espaçamento
@@ -139,7 +143,7 @@ fun App() {
                 valueAlcohol = it // it -> valor subentendido por ser um unico parametro
             },
             label = {
-                Text(text = "Alcohol")
+                Text(text = "Alcohol (price per liter)")
             }
         )
     }
